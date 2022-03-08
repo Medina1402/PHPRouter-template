@@ -1,0 +1,27 @@
+@import "./reset.scss";
+@import "./fonts.scss";
+@import "./themes/themes.scss";
+
+* {
+  color: var(--theme-app-text-color);
+  font-family: 'Fira Sans', sans-serif;
+}
+
+// Scroll Bar
+body {
+  background-color: var(--theme-app-bg);
+
+  &::-webkit-scrollbar {
+    width: 1rem
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--theme-app-bg)
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--theme-app-scrollbar-thumb-bg);
+    border-radius: 5rem;
+    border: 0.25rem solid var(--theme-app-scrollbar-thumb-border-bg);
+  }
+}

@@ -1,0 +1,14 @@
+@import "../colors.scss";
+
+:root {
+  --theme-app-bg: var(--color-gray-200);
+  --theme-app-text-color: var(--color-gray-900);
+  --theme-app-text-underline-color: var(--color-gray-800);
+  --theme-app-codebox-bg: var(--color-gray-300);
+  --theme-app-color-primary-header: var(--color-purple-400);
+  // Scroll Bar
+  --theme-app-scrollbar-thumb-bg: var(--color-gray-300);
+  --theme-app-scrollbar-thumb-border-bg: var(--color-gray-200);
+}
+
+@import "./theme-dark.scss";

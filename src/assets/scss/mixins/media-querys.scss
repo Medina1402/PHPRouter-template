@@ -1,0 +1,5 @@
+@mixin screenMediaQuery($propertie, $breakpoint) {
+  @media only screen and ($propertie: $breakpoint) {
+    @content;
+  }
+}

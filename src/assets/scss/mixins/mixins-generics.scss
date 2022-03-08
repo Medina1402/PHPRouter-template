@@ -1,0 +1,9 @@
+@mixin containerGeneric($width, $break) {
+  transition: 200ms;
+  width: $width;
+  margin: auto;
+
+  @include screenMediaQuery(max-width, $break) {
+    width: calc(100% - 2rem);
+  }
+}

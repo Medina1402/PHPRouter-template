@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+@mixin fontFamilySelectWeight($weight) {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: $weight;
+}
+
+.font-light {
+  @include fontFamilySelectWeight(300)
+}
+
+.font-regular {
+  @include fontFamilySelectWeight(400)
+}
+
+.font-medium {
+  @include fontFamilySelectWeight(500)
+}
+
+.font-semi-bold {
+  @include fontFamilySelectWeight(600)
+}
+
+.font-bold {
+  @include fontFamilySelectWeight(700)
+}
+
+.font-extra-bold {
+  @include fontFamilySelectWeight(800)
+}
+
+.font-black {
+  @include fontFamilySelectWeight(900)
+}
