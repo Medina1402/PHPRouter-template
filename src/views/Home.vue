@@ -1,24 +1,16 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-    <button @click="printData">PrintData</button>
+  <div style="margin: 2rem 8rem; font-size: 2rem">
+    <li>Registrar laboratorios *mostrar disponibilidad y estado del laboratorio*</li>
+    <li>Apartar laboratorios *rango de fechas y horas, incluye descripcion del mismo*</li>
+    <hr>
+    <li>Registro de docentes</li>
+    <li>Registrar laboratorios por parte de docentes</li>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
-
-@Component({
-  components: {
-    HelloWorld,
-  },
-})
-export default class Home extends Vue {
-  printData() {
-    fetch("/labs", { method: "post" }).then(data => data.json()).then(result => console.log(result))
-  }
-}
+@Component({})
+export default class Home extends Vue {}
 </script>
