@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/public/precache-manifest.80abca836944c4ed07ffd5686579754b.js"
+  "/public/precache-manifest.44d0c5b6653cd4f1c0ae8efbe4f5030d.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "feyri-labs"});
