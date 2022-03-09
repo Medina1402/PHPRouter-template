@@ -1,5 +1,9 @@
 <?php
 include_once __DIR__ . "/../routes/web.php";
+include_once __DIR__ . "/../resources/services/Env.php";
 
-/** @var $router */
+/** Load environment variables */
+Env::init();
+
+/** Application @var $router */
 $app = new Application($router);
