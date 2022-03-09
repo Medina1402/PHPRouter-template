@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . "/../resources/plugins/php-router.php";
+include_once __DIR__ . "/../application/providers/php-router.php";
 
 $api = new Router();
 

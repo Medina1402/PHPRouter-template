@@ -1,0 +1,1 @@
+# This folder includes all the service providers required to register events for core servers and to configure application.

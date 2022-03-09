@@ -1,0 +1,1 @@
+# This folder helps in queries for migrating the database used in the web application.

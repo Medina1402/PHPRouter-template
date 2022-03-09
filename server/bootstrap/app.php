@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__ . "/../routes/web.php";
-include_once __DIR__ . "/../resources/services/Env.php";
+include_once __DIR__ . "/../application/providers/Env.php";
 
 /** Load environment variables */
 Env::init();
