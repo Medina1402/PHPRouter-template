@@ -11,6 +11,9 @@ abstract class Migration {
      */
     public abstract function schema(): string;
 
+    /**
+     * @return string
+     */
     private function get_table_name(): string {
         $schema = trim(strtolower($this->schema()));
         $temp = explode("create table", $schema);

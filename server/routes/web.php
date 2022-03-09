@@ -13,9 +13,6 @@ $router
     ->get("/", function (Request $request, Response $response) {
         $response->render("public/index.html");
     })
-    ->get("/temp", function (Request $request, Response $response) {
-        $response->send("");
-    })
     ->default("get", function (Request $request, Response $response) {
         $response->render("resources/views/error.html");
     });
