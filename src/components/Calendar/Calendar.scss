@@ -1,0 +1,60 @@
+.cell {
+  &:hover {
+    background-color: var(--color-whiteAlpha-50);
+  }
+}
+
+.calendar-description {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    font-size: 1.3rem;
+    &:first-child {
+      display: flex;
+      align-items: center;
+      padding: 0 0.4rem;
+      &:hover {
+        background-color: var(--color-whiteAlpha-100);
+        cursor: pointer;
+      }
+      :last-child {
+        margin-left: 0.2rem;
+      }
+    }
+    &:nth-child(2) {
+      text-decoration: underline;
+      text-decoration-color: var(--color-orange-300);
+      text-decoration-thickness: 0.1rem;
+      text-underline-offset: 0.3rem;
+    }
+  }
+}
+
+.controls {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr 1fr;
+
+  button {
+    font-size: 0.6rem;
+    padding: 0.5rem;
+    color: var(--color-gray-900);
+    background-color: var(--color-orange-300);
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  height: 3rem;
+  user-select: none;
+  &:first-child {
+    width: 2rem;
+  }
+}
