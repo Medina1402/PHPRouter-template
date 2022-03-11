@@ -1,6 +1,50 @@
-.cell {
-  &:hover {
+.table {
+  display: flex;
+
+  .content {
+    display: grid;
+    grid-template-columns: 3.6rem 1fr;
+    width: 100%;
+    margin-top: 2rem;
+
+    .time {
+      .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.row-head {
+  height: 2rem;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.box {
+  margin: 0.4rem;
+  height: 3rem;
+  overflow: hidden;
+  user-select: none;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  .box {
+    opacity: 0.2;
     background-color: var(--color-whiteAlpha-50);
+  }
+
+  [aria-selected='true'] {
+    .box {
+      opacity: 1;
+      cursor: pointer;
+    }
   }
 }
 
@@ -9,20 +53,24 @@
   align-items: center;
   justify-content: space-between;
 
+  #settings {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    padding: 0.6rem;
+
+    span {
+      margin-left: 0.2rem;
+    }
+
+    &:hover {
+      background-color: var(--color-whiteAlpha-100);
+      cursor: pointer;
+    }
+  }
+
   h2 {
     font-size: 1.3rem;
-    &:first-child {
-      display: flex;
-      align-items: center;
-      padding: 0 0.4rem;
-      &:hover {
-        background-color: var(--color-whiteAlpha-100);
-        cursor: pointer;
-      }
-      :last-child {
-        margin-left: 0.2rem;
-      }
-    }
     &:nth-child(2) {
       text-decoration: underline;
       text-decoration-color: var(--color-orange-300);
@@ -44,17 +92,5 @@
     background-color: var(--color-orange-300);
     text-transform: uppercase;
     cursor: pointer;
-  }
-}
-
-table {
-  width: 100%;
-}
-
-th {
-  height: 3rem;
-  user-select: none;
-  &:first-child {
-    width: 2rem;
   }
 }

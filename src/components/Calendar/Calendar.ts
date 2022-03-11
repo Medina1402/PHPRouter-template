@@ -14,17 +14,13 @@ export default class CalendarComponent extends Vue {
     current_week = this.week
     days_week: number[] = []
 
-    mounted() {
-        this.days_for_week()
-    }
-
     get week() {
         let current_date: any = new Date()
         let one_jan: any = new Date(current_date.getFullYear(), 0, 1)
         let numberOfDays = Math.floor((current_date - one_jan) / (24 * 60 * 60 * 1000))
         // Render: Load Current Year
         this.updateDate(current_date)
-        return Math.ceil((current_date.getDay() + 1 + numberOfDays) / 7)
+        return Math.ceil(((current_date.getDay() + 1 + numberOfDays) / 7) - 1)
     }
 
     updateDate(current_date: Date) {

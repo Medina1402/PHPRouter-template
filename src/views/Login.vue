@@ -22,9 +22,9 @@ import Input from "@/components/Input.vue";
   components: { Input }
 })
 export default class Login extends Vue {
-  email!: string
-  password!: string
-  keepSession!: boolean
+  email: string | null = null
+  password: string | null = null
+  keepSession: boolean = false
 
   logging() {
     this.$store.commit('logging')
