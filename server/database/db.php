@@ -5,6 +5,8 @@
  * It only opens and closes connections, and executes string queries
  */
 class DB {
+    private static ?mysqli $connection = null;
+
     /**
      * Create connection mysql, is necessary closed
      * @return mysqli
@@ -28,6 +30,7 @@ class DB {
      */
     private static function close(mysqli $connect): void {
         $connect->close();
+        self::$connection = null;
     }
 
     /**
@@ -40,5 +43,30 @@ class DB {
         $result = $connection->query($query);
         self::close($connection);
         return $result;
+    }
+
+    /**
+     * @return void
+     */
+    public static function startTransactions() {
+        self::$connection = self::connection();
+        self::connection()->begin_transaction();
+    }
+
+    /**
+     * @param string $query
+     * @return bool|mysqli_result
+     */
+    public static function transaction(string $query) {
+        $result = self::$connection->query($query);
+        self::$connection->commit();
+        return $result;
+    }
+
+    /**
+     * @return void
+     */
+    public static function endTransaction() {
+        self::close(self::$connection);
     }
 }

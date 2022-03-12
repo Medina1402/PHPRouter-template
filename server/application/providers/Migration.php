@@ -14,7 +14,7 @@ abstract class Migration {
     /**
      * @return string
      */
-    private function get_table_name(): string {
+    public function get_table_name(): string {
         $schema = trim(strtolower($this->schema()));
         $temp = explode("create table", $schema);
         return trim(explode("(", $temp[1])[0]);
@@ -36,7 +36,7 @@ abstract class Migration {
      */
     public function down(): void {
         $table = $this->get_table_name();
-        DB::query("drop table $table");
+        DB::query("drop table $table cascade");
     }
 }
 
