@@ -2,7 +2,8 @@
   <header class="header">
     <nav id="nav">
       <router-link to="/" class="title font-black">FEYRI Labs</router-link>
-      <router-link to="/about">About</router-link>
+      <router-link to="/admin">Admin</router-link>
+      <router-link to="/calendar">Calendar</router-link>
     </nav>
     <button style="cursor: pointer" class="font-black" @click="logout">LogOut</button>
   </header>
@@ -40,6 +41,21 @@ export default class Header extends Vue {
     left: 0;
     background-color: var(--theme-app-bg);
     z-index: -1;
+  }
+}
+
+nav {
+  a {
+    &:hover {
+      color: var(--color-orange-300);
+      text-decoration: underline;
+      text-decoration-color: var(--color-orange-300);
+      text-decoration-thickness: 0.1rem;
+      text-underline-offset: 0.3rem;
+    }
+    &:not(:first-child) {
+      margin-right: 1rem;
+    }
   }
 }
 

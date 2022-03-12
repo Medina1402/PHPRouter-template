@@ -5,6 +5,7 @@ export default class CalendarComponent extends Vue {
     months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
     days = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
 
+    @Prop({required: true}) lab_id!: string
     @Prop({required: true}) lab_description!: string
     @Prop({required: true}) start_time!: number
     @Prop({required: true}) end_time!: number

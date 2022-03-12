@@ -1,7 +1,7 @@
 <template>
-  <div style="width: 90%; margin: auto; padding-top: 2rem">
-    <Calendar start_time="8" end_time="16" lab_description="LAB 243"/>
-  </div>
+  <section id="calendar">
+    <Calendar lab_id="0" lab_description="LAB 243" start_time="8" end_time="16"/>
+  </section>
 </template>
 
 <script lang="ts">
@@ -13,3 +13,11 @@ import Calendar from "../components/Calendar/Calendar.vue";
 })
 export default class About extends Vue {}
 </script>
+
+<style lang="scss">
+#calendar {
+  width: 90%;
+  margin: auto;
+  padding-top: 2rem
+}
+</style>

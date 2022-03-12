@@ -15,7 +15,7 @@
     </div>
 
     <div class="table">
-      <SettingsLabCalendar v-if="showSetting"/>
+      <SettingsLabCalendar :select-value.sync="lab_value" :edit-calendar.sync="editable" v-if="showSetting"/>
       <div class="content">
         <div class="time">
           <div class="row-head"></div>
@@ -48,10 +48,17 @@ import SettingsLabCalendar from "@/components/SettingsLabCalendar.vue";
 export default class Calendar extends CalendarComponent {
   showSetting = false
   current_date?: number
+  editable?: boolean = false
+  lab_value?: any = null
 
   mounted() {
     this.days_for_week()
     this.current_date = (this.current_week * 7) + (new Date().getDate() % 7)
+  }
+
+  @Watch("editable")
+  editable_calendar() {
+    if (this.editable) console.log(this.lab_value)
   }
 
   toggleSetting() {

@@ -5,10 +5,10 @@
       <Input :update-value.sync="password" leading-icon="lock" placeholder="Password" type="password"/>
       <div class="align-option">
         <button class="button font-black" type="submit">INGRESAR</button>
-        <label class="align-option">
-          <span class="font-light legend-form-session">Mantener sesion</span>
-          <input type="checkbox" v-model="keepSession"/>
-        </label>
+<!--        <label class="align-option">-->
+<!--          <span class="font-light legend-form-session">Mantener sesion</span>-->
+<!--          <input type="checkbox" v-model="keepSession"/>-->
+<!--        </label>-->
       </div>
     </form>
   </section>

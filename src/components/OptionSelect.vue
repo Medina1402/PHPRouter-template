@@ -5,7 +5,7 @@
       <box-icon color="var(--color-orange-300)" name="chevron-down"/>
     </div>
     <div v-if="show_options" class="options">
-      <div :aria-label="option.value" @click="bindingValue" class="option" v-for="(option, index) in options" :key="'_' + index">
+      <div :aria-label="option.contact" :aria-roledescription="option.value" class="option" @click="bindingValue" v-for="(option, index) in options" :key="'_' + index">
         {{option.legend}}
       </div>
     </div>
@@ -27,14 +27,15 @@ export default class OptionSelect extends Vue {
   bindingValue(event: any) {
     this.$emit("update:update-value", {
       legend: event.target.textContent,
-      value: event.target.getAttribute("aria-label")
+      contact: event.target.getAttribute("aria-label"),
+      value: event.target.getAttribute("aria-roledescription")
     })
     this.toggleShowOptions()
     this.$emit("update:expand", true)
   }
 
   @Prop({required: true}) label?: string
-  @Prop({required: true}) options?: {value: any, legend: string}[]
+  @Prop({required: true}) options?: {value: any, legend: string, contact: string}[]
   @Prop({}) value?: any
   @Prop({}) expand?: any
 }
