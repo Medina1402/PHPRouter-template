@@ -3,7 +3,7 @@ include_once __DIR__ . "/../../application/providers/Migration.php";
 
 class Reservation_hours extends Migration {
     private ?int $id = null;
-    private int $reservation_id; // get - set Foreign Key
+    private ?int $reservation_id = null; // get - set Foreign Key
     public int $hr_start;
     public int $hr_end;
 

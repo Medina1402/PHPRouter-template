@@ -1,10 +1,18 @@
 <?php
-include_once __DIR__ . "/../../database/db.php";
+include_once __DIR__ . "/Database.php";
 
 /**
  *
  */
-abstract class Migration {
+abstract class IMigration {
+    abstract protected function up(): void;
+    abstract protected function down(): void;
+}
+
+/**
+ *
+ */
+abstract class Migration extends IMigration {
     /**
      * Create schema (table for database)
      * @return string
@@ -24,7 +32,7 @@ abstract class Migration {
      * Run the migration
      * @return void
      */
-    public function up(): void {
+    protected function up(): void {
         $schema = trim(strtolower($this->schema()));
         if (strpos($schema, "create table")) return;
         DB::query("$schema");
@@ -34,7 +42,7 @@ abstract class Migration {
      * Reverse migration
      * @return void
      */
-    public function down(): void {
+    protected function down(): void {
         $table = $this->get_table_name();
         DB::query("drop table $table cascade");
     }
@@ -43,7 +51,7 @@ abstract class Migration {
 /**
  * Read all migrations and execute called sentence
  */
-class MountMigrations {
+class MountMigrations extends IMigration {
     /**
      * Read migration for /database/migrations and get all instances
      * @return array
@@ -61,14 +69,13 @@ class MountMigrations {
                 if( $temp instanceof Migration ) $migrations[] = $temp;
             }
         }
-
         return $migrations;
     }
 
     /**
      * @return void
      */
-   public static function up(): void {
+   public function up(): void {
        $migrations = self::readMigrations();
         if ( $migrations == [] ) return;
 
@@ -80,7 +87,7 @@ class MountMigrations {
     /**
      * @return void
      */
-   public static function down(): void {
+   public function down(): void {
        $migrations = self::readMigrations();
        if ( $migrations == [] ) return;
 
@@ -88,4 +95,20 @@ class MountMigrations {
            if( $migration instanceof Migration ) $migration->down();
        }
    }
+
+    /**
+     * @return void
+     */
+   public static function create() {
+       $instance = new MountMigrations();
+       $instance->up();
+   }
+
+    /**
+     * @return void
+     */
+    public static function delete() {
+        $instance = new MountMigrations();
+        $instance->up();
+    }
 }

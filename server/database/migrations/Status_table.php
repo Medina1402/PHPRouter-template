@@ -12,4 +12,11 @@ class Status extends Migration {
         )";
         return $schema;
     }
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int {
+        return $this->id;
+    }
 }

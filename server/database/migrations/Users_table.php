@@ -1,6 +1,14 @@
 <?php
 include_once __DIR__ . "/../../application/providers/Migration.php";
 
+include_once "Rol_table.php";
+
+/**
+ * Example:
+ * $user = Repository::findOne(Users::class, "id", 2);
+ * if ($user instanceof Users);
+ * $response->send("Rol description of userId[". $user->getId() ."]: " . $user->getRol()->description);
+ */
 class Users extends Migration {
     private ?int $id = null;
     private ?int $rol_id = null; // get - set Foreign Key
@@ -20,5 +28,21 @@ class Users extends Migration {
             FOREIGN KEY (rol_id) REFERENCES rol (id)
         )";
         return $schema;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int {
+        return $this->id;
+    }
+
+    /**
+     * @return Rol
+     */
+    public function getRol(): Rol {
+        $rol = Repository::findId(Rol::class, $this->rol_id);
+        if ($rol instanceof Rol);
+        return $rol;
     }
 }
