@@ -33,6 +33,109 @@ class Repository {
 
     /**
      * @param string $class
+     * @param array $args
+     * @param string $join
+     * @return array
+     */
+    public static function whereArgs(string $class, array $args, string $join = "and"): array {
+        $where = "where";
+        foreach ($args as $key => $value) {
+            if(strlen($where) > 6) $where .= " $join";
+            $where .= " $key$value";
+        }
+        $query = "select * from " . (new $class)->get_table_name() . " $where";
+        echo "<br>" . $query . "<br>";
+        return self::executeQuery($class, $query);
+    }
+
+    /**
+     * @param string $class
+     * @param $instance
+     * @return bool
+     */
+    public static function insert(string $class, &$instance): bool {
+        $data = self::getDataForDefinedInstance($instance, $class);
+        $arrayForNewInstance = array();
+        if ($instance instanceof Migration);
+        $query = "insert into " . $instance->get_table_name() . " (";
+        foreach ($data as $key => $value) {
+            if ($value != null) {
+                $arrayForNewInstance[$key] = "=" . ($value == strval(intval($value)) ? "$value" :"'$value'") . " ";
+                $query .= "$key,";
+            }
+        }
+
+        $query .= ") values (";
+        foreach ($data as $key => $value) {
+            echo $value . " " . intval($value) . " " . $value == strval(intval($value)) . "<br>";
+            if ($value != null) $query .= ($value == strval(intval($value)) ? "$value" :"'$value'") . ",";
+        }
+        $query .= ");";
+        $query = str_replace(",)", ")", $query);
+
+        $result = DB::query($query);
+        if ($result) {
+            $instance = self::whereArgs($class, $arrayForNewInstance)[0];
+            return true;
+        };
+        return false;
+    }
+
+    /**
+     * @param string $class
+     * @param $instance
+     * @param string $field_id
+     * @return bool
+     */
+    public static function update(string $class, &$instance, string $field_id): bool {
+        $data = self::getDataForDefinedInstance($instance, $class);
+        if (!isset($data[$field_id])) return false;
+
+        if ($instance instanceof Migration);
+        $query = "update " . $instance->get_table_name() . " set ";
+        foreach ($data as $key => $value) {
+            if ($value != null and $key != $field_id) {
+                $query .= "$key = " . ($value == strval(intval($value)) ? "$value" :"'$value'") . ", ";
+            }
+        }
+        $query .= "where $field_id = " . $data[$field_id];
+        $query = str_replace(", where", " where", $query);
+
+        $result = DB::query($query);
+        if ($result) {
+            $instance = self::findOne($class, $field_id, $data[$field_id]);
+            return true;
+        };
+        return false;
+    }
+
+    /**
+     * @param $instance
+     * @param string $class
+     * @return array
+     */
+    private static function getDataForDefinedInstance($instance, string $class): array {
+        $data = self::GetKeys($instance, $class);
+        $keys = array();
+        $reflexionClass = null;
+        try { $reflexionClass = new ReflectionClass($instance); } catch (ReflectionException $e) { }
+
+        foreach ($data["private"] as $key => $value) {
+            $item = explode("]", $value);
+            if (isset($item[1])) $keys[$item[0]] = $item[1];
+            else {
+                try {
+                    $property = $reflexionClass->getProperty($item[0]);
+                    $property->setAccessible(true);
+                    $keys[$item[0]] = $property->getValue($instance);
+                } catch (ReflectionException $e) {}
+            }
+        }
+        return $keys;
+    }
+
+    /**
+     * @param string $class
      * @param string $query
      * @return array
      */
@@ -68,12 +171,13 @@ class Repository {
             }
 
             foreach ($instance["keys"]["private"] as $field) {
-                if (!$result[$field]) continue;
-                $reflectionProperty = $reflectionClass->getProperty($field);
+                if (isset($result[$field])) {
+                    $reflectionProperty = $reflectionClass->getProperty($field);
 
-                if($reflectionProperty->getType()->getName() === "int") $result[$field] = (int) $result[$field];
-                $reflectionProperty->setAccessible(true);
-                $reflectionProperty->setValue($instance["class"], $result[$field]);
+                    if($reflectionProperty->getType()->getName() === "int") $result[$field] = (int) $result[$field];
+                    $reflectionProperty->setAccessible(true);
+                    $reflectionProperty->setValue($instance["class"], $result[$field]);
+                }
             }
         } catch (ReflectionException $e) {}
     }
@@ -92,16 +196,16 @@ class Repository {
 
     /**
      * @param Migration $class
-     * @param $classname
+     * @param string $classname
      * @return array
      */
-    private static function GetKeys(Migration $class, $classname): array {
+    private static function GetKeys(Migration $class, string $classname): array {
         $keys = array();
         $keys["public"] = array_keys(get_class_vars($classname));
         $private_keys = print_r($class, true);
 
         $str = str_replace("\n", "", $private_keys);
-        $str = str_replace(" ", "", $str);
+        $str = trim($str, " ");
         $str = str_replace("=>", "", $str);
         $str = str_replace(")", "", $str);
         $str = explode("(", $str)[1];

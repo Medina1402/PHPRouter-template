@@ -1,5 +1,6 @@
 <?php
 include_once __DIR__ . "/../../application/providers/Migration.php";
+include_once __DIR__ . "/../../application/providers/Repository.php";
 
 include_once "Rol_table.php";
 
@@ -11,7 +12,7 @@ include_once "Rol_table.php";
  */
 class Users extends Migration {
     private ?int $id = null;
-    private ?int $rol_id = null; // get - set Foreign Key
+    private ?int $rol_id = null;
     public string $username;
     public string $email;
     public string $password;
@@ -20,11 +21,11 @@ class Users extends Migration {
     public function schema(): string {
         $schema = "CREATE TABLE users (
             id INT AUTO_INCREMENT PRIMARY KEY,
+            rol_id INT NOT NULL,
             username VARCHAR(255) NOT NULL,
             email VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
             contact varchar(255) default '-',
-            rol_id INT NOT NULL,
             FOREIGN KEY (rol_id) REFERENCES rol (id)
         )";
         return $schema;
@@ -35,6 +36,20 @@ class Users extends Migration {
      */
     public function getId(): ?int {
         return $this->id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getRolId(): ?int {
+        return $this->rol_id;
+    }
+
+    /**
+     * @param int|null $rol_id
+     */
+    public function setRolId(?int $rol_id): void {
+        $this->rol_id = $rol_id;
     }
 
     /**

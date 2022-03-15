@@ -18,8 +18,7 @@ class Rol extends Migration {
     /**
      * @return int|null
      */
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 }
