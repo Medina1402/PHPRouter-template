@@ -6,11 +6,13 @@ class Repository {
      * @param string $class
      * @param string $key
      * @param $value
-     * @return object
+     * @return object|null
      */
-    public static function findOne(string $class, string $key, $value): object {
+    public static function findOne(string $class, string $key, $value): ?object {
         $query = "select * from " . (new $class)->get_table_name() . " where $key='$value' limit 1";
-        return self::executeQuery($class, $query)[0];
+        $result = self::executeQuery($class, $query);
+        if ($result != null) return $result[0];
+        return null;
     }
 
     /**
@@ -44,7 +46,6 @@ class Repository {
             $where .= " $key$value";
         }
         $query = "select * from " . (new $class)->get_table_name() . " $where";
-        echo "<br>" . $query . "<br>";
         return self::executeQuery($class, $query);
     }
 
@@ -60,15 +61,14 @@ class Repository {
         $query = "insert into " . $instance->get_table_name() . " (";
         foreach ($data as $key => $value) {
             if ($value != null) {
-                $arrayForNewInstance[$key] = "=" . ($value == strval(intval($value)) ? "$value" :"'$value'") . " ";
+                $arrayForNewInstance[$key] = "=" . ($value == strval(intval($value)) ? "$value" :"'".trim($value)."'") . " ";
                 $query .= "$key,";
             }
         }
 
         $query .= ") values (";
         foreach ($data as $key => $value) {
-            echo $value . " " . intval($value) . " " . $value == strval(intval($value)) . "<br>";
-            if ($value != null) $query .= ($value == strval(intval($value)) ? "$value" :"'$value'") . ",";
+            if ($value != null) $query .= ($value == strval(intval($value)) ?"$value," :"'".trim($value)."',");
         }
         $query .= ");";
         $query = str_replace(",)", ")", $query);
@@ -167,7 +167,7 @@ class Repository {
 
                 if($reflectionProperty->getType()->getName() == "int") $result[$field] = (int) $result[$field];
                 $reflectionProperty->setAccessible(true);
-                $reflectionProperty->setValue($instance["class"], $result[$field]);
+                $reflectionProperty->setValue($instance["class"], trim($result[$field]));
             }
 
             foreach ($instance["keys"]["private"] as $field) {
@@ -176,7 +176,7 @@ class Repository {
 
                     if($reflectionProperty->getType()->getName() === "int") $result[$field] = (int) $result[$field];
                     $reflectionProperty->setAccessible(true);
-                    $reflectionProperty->setValue($instance["class"], $result[$field]);
+                    $reflectionProperty->setValue($instance["class"], trim($result[$field]));
                 }
             }
         } catch (ReflectionException $e) {}

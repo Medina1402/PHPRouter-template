@@ -109,6 +109,6 @@ class MountMigrations extends IMigration {
      */
     public static function delete() {
         $instance = new MountMigrations();
-        $instance->up();
+        $instance->down();
     }
 }

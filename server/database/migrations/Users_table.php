@@ -16,7 +16,7 @@ class Users extends Migration {
     public string $username;
     public string $email;
     public string $password;
-    public string $contact;
+    public string $info;
 
     public function schema(): string {
         $schema = "CREATE TABLE users (
@@ -25,7 +25,7 @@ class Users extends Migration {
             username VARCHAR(255) NOT NULL,
             email VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
-            contact varchar(255) default '-',
+            info varchar(255),
             FOREIGN KEY (rol_id) REFERENCES rol (id)
         )";
         return $schema;
