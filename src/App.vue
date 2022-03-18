@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <Application v-if="isLogin"/>
-    <Login v-else/>
+    <Header/>
+    <router-view/>
+    <Login/>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
+import Header from "@/components/Header.vue";
 import Login from '@/views/Login.vue';
-import Application from "@/components/Application.vue";
 
 @Component({
-  components: {Application, Login }
+  components: {Login, Header}
 })
 export default class App extends Vue {
   get isLogin(): boolean {

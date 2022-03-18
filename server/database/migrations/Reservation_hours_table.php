@@ -50,4 +50,11 @@ class Reservation_hours extends Migration {
         if ($reservation instanceof Reservations);
         return $reservation;
     }
+
+    /**
+     * @return array
+     */
+    public function json(): array {
+        return array();
+    }
 }

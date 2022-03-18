@@ -21,4 +21,11 @@ class Rol extends Migration {
     public function getId(): ?int {
         return $this->id;
     }
+
+    /**
+     * @return array
+     */
+    public function json(): array {
+        return array();
+    }
 }

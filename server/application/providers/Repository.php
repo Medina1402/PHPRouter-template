@@ -20,7 +20,7 @@ class Repository {
      * @param $id
      * @return object
      */
-    public static function findId(string $class, $id): object {
+    public static function findId(string $class, $id): ?object {
         return self::findOne($class, "id", $id);
     }
 
@@ -28,7 +28,7 @@ class Repository {
      * @param string $class
      * @return array
      */
-    public static function findAll(string $class): array {
+    public static function findAll(string $class): ?array {
         $query = "select * from " . (new $class)->get_table_name();
         return self::executeQuery($class, $query);
     }
@@ -39,7 +39,7 @@ class Repository {
      * @param string $join
      * @return array
      */
-    public static function whereArgs(string $class, array $args, string $join = "and"): array {
+    public static function whereArgs(string $class, array $args, string $join = "and"): ?array {
         $where = "where";
         foreach ($args as $key => $value) {
             if(strlen($where) > 6) $where .= " $join";
@@ -107,6 +107,17 @@ class Repository {
             return true;
         };
         return false;
+    }
+
+    /**
+     * @param string $class
+     * @param string $key
+     * @param $value
+     * @return bool
+     */
+    public static function delete(string $class, string $key, $value): bool {
+        $query = "delete from " . (new $class)->get_table_name() . " where $key = $value";
+        return DB::query($query);
     }
 
     /**

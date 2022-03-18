@@ -77,4 +77,11 @@ class Reservations extends Migration {
         if ($lab instanceof Laboratories);
         return $lab;
     }
+
+    /**
+     * @return array
+     */
+    public function json(): array {
+        return array();
+    }
 }

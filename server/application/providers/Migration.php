@@ -20,6 +20,11 @@ abstract class Migration extends IMigration {
     public abstract function schema(): string;
 
     /**
+     * @return array
+     */
+    public abstract function json(): array;
+
+    /**
      * @return string
      */
     public function get_table_name(): string {

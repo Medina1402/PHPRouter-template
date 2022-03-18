@@ -13,9 +13,9 @@ include_once "Rol_table.php";
 class Users extends Migration {
     private ?int $id = null;
     private ?int $rol_id = null;
+    private string $password;
     public string $username;
     public string $email;
-    public string $password;
     public string $info;
 
     public function schema(): string {
@@ -59,5 +59,26 @@ class Users extends Migration {
         $rol = Repository::findId(Rol::class, $this->rol_id);
         if ($rol instanceof Rol);
         return $rol;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void {
+        $this->password = $password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string {
+        return $this->password;
+    }
+
+    /**
+     * @return array
+     */
+    public function json(): array {
+        return array();
     }
 }

@@ -21,4 +21,15 @@ class Status extends Migration {
     public function getId(): ?int {
         return $this->id;
     }
+
+    /**
+     * @return array
+     */
+    public function json(): array {
+        return array(
+            "id" => $this->getId(),
+            "label" => $this->label,
+            "description" => $this->description
+        );
+    }
 }

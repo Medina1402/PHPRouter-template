@@ -75,7 +75,7 @@ class Seeder {
             $instance->username = $item["username"];
             $instance->email = $item["email"];
             $instance->info = $item["info"];
-            $instance->password = Hash::create($item["password"]);
+            $instance->setPassword(Hash::create($item["password"]));
             $instance->setRolId(
                 Repository::findOne(Rol::class, "label", $item["rol_name"])->getId()
             );

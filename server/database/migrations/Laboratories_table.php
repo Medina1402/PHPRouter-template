@@ -7,12 +7,14 @@ include_once "Status_table.php";
 class Laboratories extends Migration {
     private ?int $id = null;
     private ?int $status_id = null;
+    public string $label;
     public string $description;
 
     public function schema(): string {
         $schema = "CREATE TABLE labs (
-            id INT PRIMARY KEY,
-            status_id INT,
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            label varchar(20) not null unique,
+            status_id INT not null,
             description VARCHAR(255),
             FOREIGN KEY (status_id) REFERENCES status (id)
         )";
@@ -47,5 +49,17 @@ class Laboratories extends Migration {
         $status = Repository::findId(Status::class, $this->id);
         if ($status instanceof Status);
         return $status;
+    }
+
+    /**
+     * @return array
+     */
+    public function json(): array {
+        return array(
+            "id" => $this->getId(),
+            "label" => $this->label,
+            "status" => $this->getStatusId(),
+            "description" => $this->description
+        );
     }
 }
