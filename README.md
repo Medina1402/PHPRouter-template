@@ -1,4 +1,4 @@
-# FEYRI Labs
+# PHPRouter-template
 
 ### Requirements
 - NodeJS V14.15.4 (*dev)
